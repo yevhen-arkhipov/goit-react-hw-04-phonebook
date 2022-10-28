@@ -1,37 +1,50 @@
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
-import validation from 'constants/validation';
-import id from 'utils/nanoid';
+import { nanoid } from 'nanoid';
 
-import { DataForm, Label, Input, Error, Button } from './ContactForm.styled';
+import { DataForm, Label, Input, Button } from './ContactForm.styled';
 
-const ContactForm = ({ onSubmit, options }) => {
+const nameInputId = nanoid(5);
+const numberInputId = nanoid(8);
+
+const ContactForm = ({ onSubmit, onChange, nameValue, numberValue }) => {
   return (
-    <Formik
-      initialValues={options}
-      onSubmit={onSubmit}
-      validationSchema={validation}
-    >
-      <DataForm autoComplete="off">
-        <Label htmlFor={id.name}>
-          Name
-          <Input id={id.name} type="text" name="name" />
-          <Error name="name" component="span" />
-        </Label>
-        <Label htmlFor={id.number}>
-          Number
-          <Input id={id.number} type="tel" name="number" />
-          <Error name="number" component="span" />
-        </Label>
-        <Button type="submit">Add contact</Button>
-      </DataForm>
-    </Formik>
+    <DataForm onSubmit={onSubmit} autoComplete="off">
+      <Label>
+        Name
+        <Input
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          onChange={onChange}
+          value={nameValue}
+          id={nameInputId}
+        />
+      </Label>
+      <Label>
+        Number
+        <Input
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          onChange={onChange}
+          value={numberValue}
+          id={numberInputId}
+        />
+      </Label>
+      <Button type="submit">Add contact</Button>
+    </DataForm>
   );
 };
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  options: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  nameValue: PropTypes.string.isRequired,
+  numberValue: PropTypes.string.isRequired,
 };
 
 export default ContactForm;

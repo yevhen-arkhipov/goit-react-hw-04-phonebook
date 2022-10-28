@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
-import id from 'utils/nanoid';
 import { Label, Input } from './Filter.styled';
 
 import Box from 'components/Box';
 
-const Filter = ({ filter, onFilter }) => {
+const Filter = ({ filterValue, onChange }) => {
   return (
     <Box>
-      <Label htmlFor={id.filter}>
+      <Label>
         Find contacts by name
         <Input
-          id={id.filter}
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
           type="text"
-          value={filter}
           name="filter"
-          onChange={onFilter}
+          value={filterValue}
+          onChange={onChange}
         />
       </Label>
     </Box>
@@ -22,8 +23,8 @@ const Filter = ({ filter, onFilter }) => {
 };
 
 Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  onFilter: PropTypes.func.isRequired,
+  filterValue: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Filter;

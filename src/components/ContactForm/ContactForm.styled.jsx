@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Form, Field, ErrorMessage } from 'formik';
 
-export const DataForm = styled(Form)`
+export const DataForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +19,7 @@ export const Label = styled.label`
   }
 `;
 
-export const Input = styled(Field)`
+export const Input = styled.input`
   margin-top: 5px;
   width: 230px;
   height: 20px;
@@ -28,13 +27,6 @@ export const Input = styled(Field)`
   box-shadow: ${p => p.theme.shadows.outline};
   border-color: transparent;
   border-radius: 2px;
-`;
-
-export const Error = styled(ErrorMessage)`
-  margin-top: 5px;
-  margin-left: 15px;
-  color: red;
-  font-size: ${p => p.theme.fontSizes.xs}px;
 `;
 
 export const Button = styled.button`
