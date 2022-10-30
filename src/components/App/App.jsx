@@ -1,32 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { PhonebookTitle, ContactsTitle } from './App.styled';
+import {
+  Section,
+  FormBox,
+  ContactBox,
+  PhonebookTitle,
+  ContactTitle,
+} from './App.styled';
 
 import Box from 'components/Box';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
+import { useLocalStorage } from 'utils/useLocalStorage';
 
-export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const contactsValue = JSON.parse(localStorage.getItem('contacts'));
-    return (
-      contactsValue ?? [
-        { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-        { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-        { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-        { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-      ]
-    );
-  });
+const App = () => {
+  const [contacts, setContacts] = useLocalStorage('contacts');
   const [filter, setFilter] = useState('');
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -46,6 +39,11 @@ export const App = () => {
     }
   };
 
+  const resetForm = () => {
+    setName('');
+    setNumber('');
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -60,7 +58,18 @@ export const App = () => {
           background: '#883f2d',
         },
       });
+    } else if (name.length > 20 || number.length > 20) {
+      Notify.failure(`Name or number is too long. Maximum 20 characters!`, {
+        position: 'center-top',
+        width: '300px',
+        fontSize: '14px',
+        failure: {
+          background: '#883f2d',
+        },
+      });
     } else {
+      resetForm();
+
       setContacts(prevContacts => {
         const newContact = { id: nanoid(), name, number };
 
@@ -104,22 +113,8 @@ export const App = () => {
         boxShadow="outline"
         as="main"
       >
-        <Box
-          pt={1}
-          pb={1}
-          bg="btnColor"
-          boxShadow="outline"
-          borderRadius="5px"
-          as="section"
-        >
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mb={1}
-            width="400px"
-            as="div"
-          >
+        <Section>
+          <FormBox>
             <PhonebookTitle>Phonebook</PhonebookTitle>
             <ContactForm
               onSubmit={handleSubmit}
@@ -127,20 +122,16 @@ export const App = () => {
               nameValue={name}
               numberValue={number}
             />
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            width="400px"
-            as="div"
-          >
-            <ContactsTitle>Contacts</ContactsTitle>
+          </FormBox>
+          <ContactBox>
+            <ContactTitle>Contacts</ContactTitle>
             <Filter filterValue={filter} onChange={searchingFilter} />
             <ContactList contacts={filteredContacts} onClick={removeContact} />
-          </Box>
-        </Box>
+          </ContactBox>
+        </Section>
       </Box>
     </>
   );
 };
+
+export default App;
