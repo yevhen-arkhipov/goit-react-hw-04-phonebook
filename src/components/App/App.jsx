@@ -127,7 +127,14 @@ const App = () => {
           <ContactBox>
             <ContactTitle>Contacts</ContactTitle>
             <Filter filterValue={filter} onChange={searchingFilter} />
-            <ContactList contacts={filteredContacts} onClick={removeContact} />
+            {contacts.length !== 0 && (
+              <>
+                <ContactList
+                  contacts={filteredContacts}
+                  onClick={removeContact}
+                />
+              </>
+            )}
           </ContactBox>
         </Section>
       </Box>
