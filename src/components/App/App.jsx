@@ -85,9 +85,10 @@ const App = () => {
 
   const contactFiltering = () => {
     const normalizeFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizeFilter)
-    );
+
+    return contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(normalizeFilter);
+    });
   };
 
   const removeContact = contactId => {
