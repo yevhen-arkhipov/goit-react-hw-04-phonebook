@@ -83,11 +83,10 @@ const App = () => {
     setFilter(value);
   };
 
-  const contactFiltering = () => {
-    const normalizeFilter = filter.toLowerCase();
-
+  const filteredContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizeFilter)
+      contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
@@ -99,8 +98,6 @@ const App = () => {
       return newContacts;
     });
   };
-
-  const filteredContacts = contactFiltering();
 
   return (
     <>
@@ -130,7 +127,7 @@ const App = () => {
             {contacts.length !== 0 && (
               <>
                 <ContactList
-                  contacts={filteredContacts}
+                  contacts={filteredContacts()}
                   onClick={removeContact}
                 />
               </>
