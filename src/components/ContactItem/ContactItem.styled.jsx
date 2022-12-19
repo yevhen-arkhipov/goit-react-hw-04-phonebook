@@ -4,7 +4,6 @@ export const Item = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   &:not(:last-of-type) {
     margin-bottom: ${p => p.theme.space[0]}px;
   }
@@ -29,7 +28,6 @@ export const Button = styled.button`
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-
   &:hover,
   &:focus {
     background-color: ${p => p.theme.colors.btnColor};

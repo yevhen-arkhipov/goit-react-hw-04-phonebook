@@ -13,7 +13,6 @@ export const Label = styled.label`
   color: ${p => p.theme.colors.text};
   font-size: ${p => p.theme.fontSizes.s}px;
   font-weight: bold;
-
   &:not(:last-of-type) {
     margin-bottom: ${p => p.theme.space[0]}px;
   }
@@ -22,7 +21,7 @@ export const Label = styled.label`
 export const Input = styled.input`
   margin-top: 5px;
   width: 230px;
-  height: 20px;
+  height: 28px;
   background-color: ${p => p.theme.colors.bodyColor};
   box-shadow: ${p => p.theme.shadows.outline};
   border-color: transparent;
@@ -44,7 +43,6 @@ export const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-
   &:hover,
   &:focus {
     background-color: ${p => p.theme.colors.btnColor};

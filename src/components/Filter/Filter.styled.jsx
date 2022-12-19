@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const FilterWrapper = styled.div`
+  //
+`;
+
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
@@ -13,7 +17,7 @@ export const Label = styled.label`
 export const Input = styled.input`
   margin-top: 5px;
   width: 230px;
-  height: 20px;
+  height: 28px;
   background-color: ${p => p.theme.colors.bodyColor};
   box-shadow: ${p => p.theme.shadows.outline};
   border-color: transparent;

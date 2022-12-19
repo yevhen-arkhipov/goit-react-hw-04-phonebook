@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { Label, Input } from './Filter.styled';
 
 import Box from 'components/Box';

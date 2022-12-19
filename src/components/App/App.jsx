@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import {
-  Section,
-  FormBox,
-  ContactBox,
-  PhonebookTitle,
-  ContactTitle,
-} from './App.styled';
 
 import Box from 'components/Box';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
 import { useLocalStorage } from 'utils/useLocalStorage';
+
+import { GlobalStyle } from './GlobalStyle';
+import {
+  Section,
+  PhonebookWrapper,
+  PhonebookTitle,
+  ContactsWrapper,
+  ContactsTitle,
+} from './App.styled';
 
 const App = () => {
   const [contacts, setContacts] = useLocalStorage('contacts');
@@ -112,7 +114,7 @@ const App = () => {
         as="main"
       >
         <Section>
-          <FormBox>
+          <PhonebookWrapper>
             <PhonebookTitle>Phonebook</PhonebookTitle>
             <ContactForm
               onSubmit={handleSubmit}
@@ -120,9 +122,9 @@ const App = () => {
               nameValue={name}
               numberValue={number}
             />
-          </FormBox>
-          <ContactBox>
-            <ContactTitle>Contacts</ContactTitle>
+          </PhonebookWrapper>
+          <ContactsWrapper>
+            <ContactsTitle>Contacts</ContactsTitle>
             <Filter filterValue={filter} onChange={searchingFilter} />
             {contacts.length !== 0 && (
               <>
@@ -132,9 +134,10 @@ const App = () => {
                 />
               </>
             )}
-          </ContactBox>
+          </ContactsWrapper>
         </Section>
       </Box>
+      <GlobalStyle />
     </>
   );
 };
