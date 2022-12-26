@@ -6,7 +6,7 @@ import Box from 'components/Box';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
-import { useLocalStorage } from 'utils/useLocalStorage';
+import { useContacts } from 'utils/useContacts';
 
 import { GlobalStyle } from './GlobalStyle';
 import {
@@ -18,7 +18,7 @@ import {
 } from './App.styled';
 
 const App = () => {
-  const [contacts, setContacts] = useLocalStorage('contacts');
+  const [contacts, setContacts] = useContacts([]);
   const [filter, setFilter] = useState('');
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
